@@ -203,6 +203,7 @@ object Consumer extends Logging with ConsumerParamsUtils {
 
     setVirtualHost(params)
     setUserPassword(params)
+    setSsl(params)
 
     getChannel(params) match {
       case Success(channel) =>
@@ -246,6 +247,11 @@ object Consumer extends Logging with ConsumerParamsUtils {
       factory.setPassword(pwd)
       log.debug(s"Setting password ${factory.getPassword}")
     })
+  }
+
+  private def setSsl(params: Map[String, String]): Unit = {
+      val useSsl = if ( params.get(useSslKey).getOrElse("false").equalsIgnoreCase("true")) true else false
+      if ( useSsl) factory.useSslProtocol()
   }
 
   private def getChannel(params: Map[String, String]): Try[Channel] = {
