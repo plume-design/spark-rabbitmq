@@ -250,7 +250,7 @@ object Consumer extends Logging with ConsumerParamsUtils {
   }
 
   private def setSsl(params: Map[String, String]): Unit = {
-      val useSsl = if ( params.get(useSslKey).getOrElse("false").equalsIgnoreCase("true")) true else false
+      val useSsl = if ( params.get(SslProtocolKey).getOrElse("false").equalsIgnoreCase("true")) true else false
       if ( useSsl) factory.useSslProtocol()
   }
 
