@@ -22,7 +22,7 @@ version in ThisBuild := "0.6.0-SNAPSHOT"
 
 scalaVersion in ThisBuild := "2.11.8"
 
-organization in ThisBuild := "com.stratio"
+organization in ThisBuild := "com.stratio.receiver"
 
 isSnapshot := true
 
