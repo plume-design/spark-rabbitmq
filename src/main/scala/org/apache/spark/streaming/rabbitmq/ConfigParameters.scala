@@ -34,7 +34,8 @@ object ConfigParameters {
   val UserNameKey = "userName"
   val PasswordKey = "password"
   val CodeClose = "codeClose"
-  val ConnectionKeys = List(HostsKey, VirtualHostKey, UserNameKey, PasswordKey, CodeClose)
+  val useSslKey = "useSsl"
+  val ConnectionKeys = List(HostsKey, VirtualHostKey, UserNameKey, PasswordKey, CodeClose, useSslKey)
 
   /**
    * Queue Connection properties
