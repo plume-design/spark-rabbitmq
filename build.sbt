@@ -18,7 +18,7 @@ scalacOptions ++= Seq(
 credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
 
-version in ThisBuild := "0.6.0-SNAPSHOT"
+version in ThisBuild := "0.7.0-SNAPSHOT"
 
 scalaVersion in ThisBuild := "2.11.8"
 
@@ -27,7 +27,7 @@ organization in ThisBuild := "com.stratio.receiver"
 isSnapshot := true
 
 libraryDependencies ++= {
-  val sparkVersion = "2.1.1"
+  val sparkVersion = "2.4.0"
   val amqpClientVersion = "3.6.6"
   val akkaActorVersion = "2.5.3"
   val jodaVersion = "2.8.2"

@@ -19,8 +19,8 @@ import java.util.concurrent.ConcurrentHashMap
 
 import com.rabbitmq.client.QueueingConsumer.Delivery
 import com.rabbitmq.client.{Connection, ConnectionFactory, _}
+import org.apache.log4j.Logger
 import org.apache.spark.SparkException
-import org.apache.spark.internal.Logging
 import org.apache.spark.streaming.rabbitmq.ConfigParameters._
 import org.apache.spark.streaming.rabbitmq.models.{ExchangeAndRouting, QueueConnectionOpts}
 
@@ -34,8 +34,9 @@ import scala.util.{Failure, Success, Try}
  * @param params The parameters that should contains the queue options and the consume options
  */
 private[rabbitmq]
-class Consumer(val channel: Channel, params: Map[String, String]) extends Logging {
+class Consumer(val channel: Channel, params: Map[String, String]) {
 
+  @transient protected val log = Logger.getLogger(getClass)
   private var queueName: String = ""
 
   /**
@@ -58,14 +59,16 @@ class Consumer(val channel: Channel, params: Map[String, String]) extends Loggin
 
   /**
    * Send one basic ack, this ack correspond with the delivery param
-   * @param delivery The previous delivery that the queueConsumer send with one message consumed
+    *
+    * @param delivery The previous delivery that the queueConsumer send with one message consumed
    */
   def sendBasicAck(delivery: Delivery): Unit =
     channel.basicAck(delivery.getEnvelope.getDeliveryTag,false)
 
   /**
    * Send one basic noack, this ack correspond with the delivery param
-   * @param delivery The previous delivery that the queueConsumer send with one message consumed
+    *
+    * @param delivery The previous delivery that the queueConsumer send with one message consumed
    */
   def sendBasicNAck(delivery: Delivery): Unit =
     channel.basicNack(delivery.getEnvelope.getDeliveryTag,false,true)
@@ -173,8 +176,9 @@ class Consumer(val channel: Channel, params: Map[String, String]) extends Loggin
 }
 
 private[rabbitmq]
-object Consumer extends Logging with ConsumerParamsUtils {
+object Consumer extends  ConsumerParamsUtils {
 
+  @transient protected val log = Logger.getLogger(getClass)
   /**
    * Is recommended to use the same factory and the same connection in multithreading
    */
